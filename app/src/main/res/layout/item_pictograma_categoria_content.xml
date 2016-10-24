@@ -13,7 +13,7 @@
         android:layout_height="@dimen/dimPicCat"
         android:layout_gravity="left"
         android:elevation="40dp"
-        app:srcCompat="@drawable/ic_pictograma_buho"/>
+        app:srcCompat="@drawable/ic_pic_animales_buho"/>
 
     <TextView
         android:id="@+id/tv_PicElemento_categoria_comunicador"

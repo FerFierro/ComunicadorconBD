@@ -5,7 +5,7 @@
     android:layout_height="wrap_content"
     android:orientation="horizontal"
     android:padding="10dp"
-    android:background="#C0C0C0"
+    android:background="@color/colorAccent"
     android:gravity="center"
     android:weightSum="1">
 
@@ -17,7 +17,7 @@
             android:id="@+id/uo"
             android:layout_width="50dp"
             android:layout_height="50dp"
-            app:srcCompat="@drawable/ic_megaphone_2" />
+            app:srcCompat="@drawable/ic_toast_megaphone_2" />
     </LinearLayout>
 
     <LinearLayout

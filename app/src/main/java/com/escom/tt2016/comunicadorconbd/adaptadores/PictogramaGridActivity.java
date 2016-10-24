@@ -2,6 +2,7 @@ package com.escom.tt2016.comunicadorconbd.adaptadores;
 
 
 import android.os.Bundle;
+import android.speech.tts.TextToSpeech;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
@@ -20,25 +21,34 @@ import com.escom.tt2016.comunicadorconbd.R;
 import com.escom.tt2016.comunicadorconbd.db.DBHelper;
 import com.escom.tt2016.comunicadorconbd.model.Pictograma;
 
-import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
-public class PictogramaGridActivity extends AppCompatActivity {
+public class PictogramaGridActivity extends AppCompatActivity implements TextToSpeech.OnInitListener{
     private DBHelper dbHandler;
     private PictogramaAdapter adapter;
+    private TextToSpeech textToSpeech;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pictograma_list);
-
+        textToSpeech = new TextToSpeech( this, this );
         View recyclerView = findViewById(R.id.pictograma_list);
         assert recyclerView != null;
 
         dbHandler = new DBHelper(this);
         Log.d("agregar", "Se  agregaran nuevos pictogramas");
-        dbHandler.addUser(new Pictograma("Vaca", "categoria",R.drawable.ic_pictograma_vaca));
-        dbHandler.addUser(new Pictograma("conejo", "categoria",R.drawable.ic_pictograma_conejo));
-        dbHandler.addUser(new Pictograma("Buho", "categoria",R.drawable.ic_pictograma_buho));
+        dbHandler.addUser(new Pictograma("Aguila", "animales",R.drawable.ic_pic_animales_aguila));
+        dbHandler.addUser(new Pictograma("Borrego cimarron", "animales",R.drawable.ic_pic_animales_borrego_cimarron));
+        dbHandler.addUser(new Pictograma("Buho", "animales",R.drawable.ic_pic_animales_buho));
+        dbHandler.addUser(new Pictograma("Camaleon", "animales",R.drawable.ic_pic_animales_camaleon));
+        dbHandler.addUser(new Pictograma("Conejo", "animales",R.drawable.ic_pic_animales_conejo));
+        dbHandler.addUser(new Pictograma("Jirafa", "animales",R.drawable.ic_pic_animales_jirafa));
+        dbHandler.addUser(new Pictograma("Libelula", "animales",R.drawable.ic_pic_animales_libelula));
+        dbHandler.addUser(new Pictograma("Loro", "animales",R.drawable.ic_pic_animales_loro));
+        dbHandler.addUser(new Pictograma("Mapache", "animales",R.drawable.ic_pic_animales_mapache));
+        dbHandler.addUser(new Pictograma("Vaca", "animales",R.drawable.ic_pic_animales_vaca));
+
         Log.d("agregaron", "Se  agregaron nuevos pictogramas");
         // Reading all contacts
         Log.d("leyendo", "Se estan leyendo los datos de la base de datos");
@@ -56,7 +66,43 @@ public class PictogramaGridActivity extends AppCompatActivity {
          que cambiar la asignación del LayoutManager anterior y utilizar un GridLayoutManager, al que
          pasaremos como parámetro el número de columnas a mostrar.*/
     }
-public class PictogramaAdapter extends RecyclerView.Adapter<PictogramaAdapter.PictogramaViewHolder> {
+    /*****************************************************************************************************
+    *    En esta parte se implementa y reproduce con voz el nombre del pictograma seleccionado
+    *****************************************************************************************************/
+    @Override
+    public void onInit(int status) {
+        if ( status == TextToSpeech.LANG_MISSING_DATA | status == TextToSpeech.LANG_NOT_SUPPORTED )
+        {
+            Toast toast=Toast.makeText(PictogramaGridActivity.this,"ola",Toast.LENGTH_SHORT);
+            toast.show();
+
+        }
+    }
+
+    private void speak( String str )
+    {
+        textToSpeech.speak( str, TextToSpeech.QUEUE_FLUSH, null );
+        textToSpeech.setSpeechRate( 0.0f );
+        textToSpeech.setPitch( 0.0f );
+    }
+
+
+    @Override
+    protected void onDestroy()
+    {
+        if ( textToSpeech != null )
+        {
+            textToSpeech.stop();
+            textToSpeech.shutdown();
+        }
+        super.onDestroy();
+    }
+
+    /*******************************************************************************************************
+     *                                    Fin de TextoSpeech
+     *******************************************************************************************************/
+
+    public class PictogramaAdapter extends RecyclerView.Adapter<PictogramaAdapter.PictogramaViewHolder> {
     //private ArrayList<Pictograma> mDataSet;
     private List<Pictograma> mValues;
 
@@ -112,12 +158,16 @@ public class PictogramaAdapter extends RecyclerView.Adapter<PictogramaAdapter.Pi
             toastView.setBackgroundResource(R.color.colorAccent);
             toast.setGravity(Gravity.RIGHT | Gravity.BOTTOM, 0, 0);//BOTTOM /END
             toast.show();*/
+            Locale locSpanish = new Locale("spa", "MEX");
+            textToSpeech.setLanguage(locSpanish);
+            speak( mItem.getNombre() );
 
             //Instanciamos un nuevo Toast
             Toast _mToast = new Toast(getApplicationContext());
 
             //Definimos la ubicación del Toast
             _mToast.setGravity(Gravity.CENTER | Gravity.RIGHT , 0, 0);
+            _mToast.setDuration(Toast.LENGTH_SHORT);
 
 
             //Instanciamos un LayoutInflater donde definimos el archivo XML a utilizar (R.layout.layout_toast) e
@@ -140,7 +190,12 @@ public class PictogramaAdapter extends RecyclerView.Adapter<PictogramaAdapter.Pi
 
         }
     }
+////////////////////////////////////////////////////////////////////////////
 
+
+
+
+    ////////////////////////////////////////////////////////////////////
     @Override
     public void onAttachedToRecyclerView(RecyclerView recyclerView) {
         super.onAttachedToRecyclerView(recyclerView);

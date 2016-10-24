@@ -33,9 +33,9 @@ public class MainActivity extends AppCompatActivity {
         recyclerView.setLayoutManager(layoutManager);
         dbHandler = new DBHelper(MainActivity.this);
         Log.d("agregar", "Se  agregaran nuevos pictogramas");
-        dbHandler.addUser(new Pictograma("Nombre", "categoria",R.drawable.ic_pictograma_vaca));
-        dbHandler.addUser(new Pictograma("Nombre", "categoria",R.drawable.ic_pictograma_conejo));
-        dbHandler.addUser(new Pictograma("Nombre", "categoria",R.drawable.ic_pictograma_buho));
+        dbHandler.addUser(new Pictograma("Nombre", "categoria",R.drawable));
+        dbHandler.addUser(new Pictograma("Nombre", "categoria",R.drawable.));
+        dbHandler.addUser(new Pictograma("Nombre", "categoria",R.drawable.));
         Log.d("agregaron", "Se  agregaron nuevos pictogramas");
 
         // Reading all contacts
