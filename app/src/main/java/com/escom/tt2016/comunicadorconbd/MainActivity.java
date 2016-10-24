@@ -1,4 +1,7 @@
 package com.escom.tt2016.comunicadorconbd;
+/*
+Este es mi main principal de insertar un pictograma ,en caso de que no lo quiere agregar desde
+el adaptador PictogramaGridActivity
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -11,10 +14,10 @@ import com.escom.tt2016.comunicadorconbd.adaptadores.PictogramaAdapter;
 import com.escom.tt2016.comunicadorconbd.db.DBHelper;
 import com.escom.tt2016.comunicadorconbd.model.Pictograma;
 import com.escom.tt2016.comunicadorconbd.R;
-import java.util.ArrayList;
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
-    private RecyclerView recyclerView;
+   private RecyclerView recyclerView;
     private LinearLayoutManager layoutManager;
     private PictogramaAdapter adapter;
     private DBHelper dbHandler;
@@ -37,11 +40,13 @@ public class MainActivity extends AppCompatActivity {
 
         // Reading all contacts
         Log.d("leyendo", "Se estan leyendo los datos de la base de datos");
-        ArrayList<Pictograma> picto = dbHandler.getAllUsers();
+        List<Pictograma> picto = dbHandler.getAllUsers();
         adapter = new PictogramaAdapter(picto);
         recyclerView.setAdapter(adapter);
         adapter.notifyDataSetChanged();
 
+
     }
 
 }
+*/

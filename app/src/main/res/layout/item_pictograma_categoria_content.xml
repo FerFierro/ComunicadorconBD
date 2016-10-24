@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:background="@drawable/pic_border">
+    android:background="?attr/selectableItemBackground">
 
     <!-- Este es la plantilla de mi pictograma para el item que se dibujara en el gridView de mi comunicador en la seccion de categorias-->
     <ImageView
@@ -11,7 +12,8 @@
         android:layout_width="@dimen/dimPicCat"
         android:layout_height="@dimen/dimPicCat"
         android:layout_gravity="left"
-        android:elevation="40dp"/>
+        android:elevation="40dp"
+        app:srcCompat="@drawable/ic_pictograma_buho"/>
 
     <TextView
         android:id="@+id/tv_PicElemento_categoria_comunicador"
@@ -21,8 +23,11 @@
         android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
         android:background="@color/background_footer"
         android:textColor="@color/blanco"
+        android:gravity="center"
         android:textStyle="bold"
-        android:padding="2dp"
+        android:layout_alignParentBottom="true"
+        android:paddingBottom="8dp"
+        android:paddingTop="8dp"
         android:layout_gravity="left"
          />
 

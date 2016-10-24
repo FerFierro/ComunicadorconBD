@@ -10,6 +10,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 import com.escom.tt2016.comunicadorconbd.model.Pictograma;
 
 import java.util.ArrayList;
+import java.util.List;
 
 //Este es mi base de datos sqlite
 public class DBHelper  extends SQLiteOpenHelper{
@@ -90,8 +91,8 @@ public class DBHelper  extends SQLiteOpenHelper{
     }
 
     /*getAllUsers() will return the list of all users*/
-    public ArrayList<Pictograma> getAllUsers() {
-        ArrayList<Pictograma> usersList = new ArrayList<Pictograma>();
+    public List<Pictograma> getAllUsers() {
+        List<Pictograma> usersList = new ArrayList<Pictograma>();
         String selectQuery = "SELECT  * FROM " + TABLE_PICTOGRAMA;
         SQLiteDatabase db = this.getReadableDatabase();
 

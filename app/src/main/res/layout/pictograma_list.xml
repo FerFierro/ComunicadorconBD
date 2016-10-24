@@ -11,7 +11,7 @@
     app:layoutManager="GridLayoutManager"
     android:scrollbars="horizontal"
     android:scrollbarStyle="outsideInset"
-    tools:context="com.escom.tt2016.comunicadorconbd.adaptadores.PictogramaAdapter"
+    tools:context="com.escom.tt2016.comunicadorconbd.adaptadores.PictogramaGridActivity"
     tools:listitem="@layout/item_pictograma_categoria_content"
     />
 

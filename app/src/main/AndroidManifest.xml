@@ -9,7 +9,8 @@
         android:theme="@style/AppTheme">
         <activity
             android:screenOrientation="landscape"
-            android:name=".MainActivity">
+            android:theme="@style/AppTheme.NoActionBar"
+            android:name=".adaptadores.PictogramaGridActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
