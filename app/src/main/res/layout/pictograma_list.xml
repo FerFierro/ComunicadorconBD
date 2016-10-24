@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.RecyclerView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/pictograma_list"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_margin="10dp"
+
+    app:layoutManager="GridLayoutManager"
+    android:scrollbars="horizontal"
+    android:scrollbarStyle="outsideInset"
+    tools:context="com.escom.tt2016.comunicadorconbd.adaptadores.PictogramaAdapter"
+    tools:listitem="@layout/item_pictograma_categoria_content"
+    />
+
+    <!--
+   se ha incrustado el layout manager a través del atributo app:layoutManager para generar una lista.
+   Incluso también podemos visualizar el diseño de los ítems en la vista de previsualización con el atributo
+   auxiliar tools:listitem.
+
+    app:layoutManager="GridLayoutManager" en esta linea podemos optar por LinearLayoutManager-->

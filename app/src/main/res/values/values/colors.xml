@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#42a5f5</color>
+    <color name="colorPrimaryDark">#1976D2</color>
+    <color name="colorPrimary_light">#B3E5FC</color>
+    <color name="colorAccent">#FF4081</color>
+
+    <color name="blanco">#FFFFFF</color>
+    <color name="fondotransparente">#00ffffff</color>
+    <color name="background_footer">#90000000</color>
+</resources>

@@ -1,0 +1,9 @@
+<resources>
+    <!-- Default screen margins, per the Android Design guidelines. -->
+    <dimen name="activity_horizontal_margin">16dp</dimen>
+    <dimen name="activity_vertical_margin">16dp</dimen>
+    <!--Especifica el ancho de cada columna para el pictoframa de la frase a contruir de la cuadrícula GridView en agtributo columnWidth-->
+    <dimen name="dimPicFrase">75dp</dimen>
+    <!--Especifica el ancho de cada columna para el contenedor de pictogramas de acuerdo asu categoria de la cuadrícula GridView en agtributo columnWidth-->
+    <dimen name="dimPicCat">100dp</dimen>
+</resources>

@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:background="@drawable/pic_border">
+
+    <!-- Este es la plantilla de mi pictograma para el item que se dibujara en el gridView de mi comunicador en la seccion de categorias-->
+    <ImageView
+        android:id="@+id/iv_PicElemento_categoria_comunicador"
+        android:layout_width="@dimen/dimPicCat"
+        android:layout_height="@dimen/dimPicCat"
+        android:layout_gravity="left"
+        android:elevation="40dp"/>
+
+    <TextView
+        android:id="@+id/tv_PicElemento_categoria_comunicador"
+        android:text="Título"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
+        android:background="@color/background_footer"
+        android:textColor="@color/blanco"
+        android:textStyle="bold"
+        android:padding="2dp"
+        android:layout_gravity="left"
+         />
+
+
+</LinearLayout>
