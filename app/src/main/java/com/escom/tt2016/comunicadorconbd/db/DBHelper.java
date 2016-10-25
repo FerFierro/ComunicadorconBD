@@ -60,7 +60,7 @@ public class DBHelper  extends SQLiteOpenHelper{
     public static final String CREATE_TABLE_PICTOGRAMA="CREATE TABLE "+ TABLE_PICTOGRAMA+" ("
             + ID + " INTEGER PRIMARY KEY AUTOINCREMENT,"
             + NOMBRE +" TEXT NOT NULL,"
-            + CATEGORIA +" TEXT NOT NULL,"
+            + CATEGORIA +" INTEGER,"
             + ID_DRAWABLE +" INTEGER );";
 
 
@@ -86,7 +86,7 @@ public class DBHelper  extends SQLiteOpenHelper{
         if (cursor != null)
             cursor.moveToFirst();
 
-        Pictograma pic = new Pictograma(cursor.getString(1), cursor.getString(2),cursor.getInt(3));
+        Pictograma pic = new Pictograma(cursor.getString(1), cursor.getInt(2),cursor.getInt(3));
         return pic;
     }
 
@@ -101,7 +101,7 @@ public class DBHelper  extends SQLiteOpenHelper{
         // looping through all rows and adding to list
         if (cursor.moveToFirst()) {
             do {
-                Pictograma pic = new Pictograma(cursor.getString(1), cursor.getString(2),cursor.getInt(3));
+                Pictograma pic = new Pictograma(cursor.getString(1), cursor.getInt(2),cursor.getInt(3));
                 usersList.add(pic);
             } while (cursor.moveToNext());
         }

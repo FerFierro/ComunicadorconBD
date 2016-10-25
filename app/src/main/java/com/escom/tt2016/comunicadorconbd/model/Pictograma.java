@@ -7,10 +7,10 @@ package com.escom.tt2016.comunicadorconbd.model;
 public class Pictograma {
     public int id;
     public String nombre;
-    public String categoria;
+    public int categoria;
     public int idDrawable;
 
-    public Pictograma(String nombre, String categoria, int idDrawable) {
+    public Pictograma(String nombre, int categoria, int idDrawable) {
 
         this.nombre = nombre;
         this.categoria = categoria;
@@ -33,11 +33,11 @@ public class Pictograma {
         this.nombre = nombre;
     }
 
-    public String getCategoria() {
+    public int getCategoria() {
         return categoria;
     }
 
-    public void setCategoria(String categoria) {
+    public void setCategoria(int categoria) {
         this.categoria = categoria;
     }
 

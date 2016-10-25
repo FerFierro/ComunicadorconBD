@@ -4,7 +4,9 @@
     android:orientation="vertical"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:background="?attr/selectableItemBackground">
+    android:paddingBottom="15dp"
+    android:background="?attr/selectableItemBackground"
+    android:backgroundTint="@color/blanco">
 
     <!-- Este es la plantilla de mi pictograma para el item que se dibujara en el gridView de mi comunicador en la seccion de categorias-->
     <ImageView

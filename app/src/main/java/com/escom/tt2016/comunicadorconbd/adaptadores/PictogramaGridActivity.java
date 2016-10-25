@@ -20,7 +20,7 @@ import android.widget.Toast;
 import com.escom.tt2016.comunicadorconbd.R;
 import com.escom.tt2016.comunicadorconbd.db.DBHelper;
 import com.escom.tt2016.comunicadorconbd.model.Pictograma;
-
+import com.escom.tt2016.comunicadorconbd.Utilidades;
 import java.util.List;
 import java.util.Locale;
 
@@ -38,16 +38,35 @@ public class PictogramaGridActivity extends AppCompatActivity implements TextToS
 
         dbHandler = new DBHelper(this);
         Log.d("agregar", "Se  agregaran nuevos pictogramas");
-        dbHandler.addUser(new Pictograma("Aguila", "animales",R.drawable.ic_pic_animales_aguila));
-        dbHandler.addUser(new Pictograma("Borrego cimarron", "animales",R.drawable.ic_pic_animales_borrego_cimarron));
-        dbHandler.addUser(new Pictograma("Buho", "animales",R.drawable.ic_pic_animales_buho));
-        dbHandler.addUser(new Pictograma("Camaleon", "animales",R.drawable.ic_pic_animales_camaleon));
-        dbHandler.addUser(new Pictograma("Conejo", "animales",R.drawable.ic_pic_animales_conejo));
-        dbHandler.addUser(new Pictograma("Jirafa", "animales",R.drawable.ic_pic_animales_jirafa));
-        dbHandler.addUser(new Pictograma("Libelula", "animales",R.drawable.ic_pic_animales_libelula));
-        dbHandler.addUser(new Pictograma("Loro", "animales",R.drawable.ic_pic_animales_loro));
-        dbHandler.addUser(new Pictograma("Mapache", "animales",R.drawable.ic_pic_animales_mapache));
-        dbHandler.addUser(new Pictograma("Vaca", "animales",R.drawable.ic_pic_animales_vaca));
+        dbHandler.addUser(new Pictograma("Aguila", 1,R.drawable.ic_pic_animales_aguila));
+        dbHandler.addUser(new Pictograma("Borrego cimarron", 1,R.drawable.ic_pic_animales_borrego_cimarron));
+        dbHandler.addUser(new Pictograma("Buho", 1,R.drawable.ic_pic_animales_buho));
+        dbHandler.addUser(new Pictograma("Camaleon", 1,R.drawable.ic_pic_animales_camaleon));
+        dbHandler.addUser(new Pictograma("Conejo", 1,R.drawable.ic_pic_animales_conejo));
+        dbHandler.addUser(new Pictograma("Jirafa", 1,R.drawable.ic_pic_animales_jirafa));
+        dbHandler.addUser(new Pictograma("Libelula", 1,R.drawable.ic_pic_animales_libelula));
+        dbHandler.addUser(new Pictograma("Loro", 1,R.drawable.ic_pic_animales_loro));
+        dbHandler.addUser(new Pictograma("Mapache", 1,R.drawable.ic_pic_animales_mapache));
+        dbHandler.addUser(new Pictograma("Vaca", 1,R.drawable.ic_pic_animales_vaca));
+
+        dbHandler.addUser(new Pictograma("Coca", 2,R.drawable.ic_pic_alimentos_coke));
+        dbHandler.addUser(new Pictograma("Hok dog", 2,R.drawable.ic_pic_alimentos_dog));
+        dbHandler.addUser(new Pictograma("Dona", 2,R.drawable.ic_pic_alimentos_dona));
+        dbHandler.addUser(new Pictograma("Hamburguesa", 2,R.drawable.ic_pic_alimentos_hamburger));
+        dbHandler.addUser(new Pictograma("huevo", 2,R.drawable.ic_pic_alimentos_huevo));
+
+        dbHandler.addUser(new Pictograma("Hermana", 3,R.drawable.ic_pic_familia_hermana));
+        dbHandler.addUser(new Pictograma("Hermano", 3,R.drawable.ic_pic_familia_hermano));
+        dbHandler.addUser(new Pictograma("Prima", 3,R.drawable.ic_pic_familia_prima));
+        dbHandler.addUser(new Pictograma("Primo", 3,R.drawable.ic_pic_familia_primo));
+        dbHandler.addUser(new Pictograma("Vaca", 3,R.drawable.ic_pic_animales_vaca));
+
+        dbHandler.addUser(new Pictograma("Astronauta", 4,R.drawable.ic_pic_profesiones_astronauta));
+        dbHandler.addUser(new Pictograma("Capitán", 4,R.drawable.ic_pic_profesiones_capitan));
+        dbHandler.addUser(new Pictograma("Detective", 4,R.drawable.ic_pic_profesiones_detective));
+        dbHandler.addUser(new Pictograma("Doctor", 4,R.drawable.ic_pic_profesiones_doctor));
+        dbHandler.addUser(new Pictograma("Ingeniero", 4,R.drawable.ic_pic_profesiones_ingeniero));
+
 
         Log.d("agregaron", "Se  agregaron nuevos pictogramas");
         // Reading all contacts
@@ -115,6 +134,7 @@ public class PictogramaGridActivity extends AppCompatActivity implements TextToS
     @Override
     public PictogramaViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_pictograma_categoria_content, parent, false);
+
         return new  PictogramaViewHolder(v);
     }
 
@@ -124,6 +144,14 @@ public class PictogramaGridActivity extends AppCompatActivity implements TextToS
         // holder.mIdView.setText(mValues.get(position).id);
         holder.mNombreView.setText(mValues.get(position).nombre);
         holder.mImageView.setImageResource(mValues.get(position).idDrawable);
+
+        /* ************* Esta es la linea para colorear el pictograma de acuerdo a su categoria de pictograma **********************************************************************/
+        // holder.mNombreView.setBackgroundResource(Utilidades.getBackground(mValues.get(position).getCategoria())); //Solo colorear el texto
+         holder.mImageView.setBackgroundResource(Utilidades.getBackground(mValues.get(position).getCategoria())); //Colorear
+
+        //holder.mView.setBackgroundResource(Utilidades.getBackground(mValues.get(position).getCategoria())); //Colorear
+
+        /*************************************************************************************************************************************************************************/
     }
 
     @Override
@@ -143,7 +171,9 @@ public class PictogramaGridActivity extends AppCompatActivity implements TextToS
         public PictogramaViewHolder(View view) {
             super(view);
             mView = view;
+
             mView.setOnClickListener(this);
+
             // mIdView = (TextView) view.findViewById(R.id.txt_id);
             mImageView=(ImageView) view.findViewById(R.id.iv_PicElemento_categoria_comunicador);
             mNombreView = (TextView) view.findViewById(R.id.tv_PicElemento_categoria_comunicador);
@@ -158,6 +188,7 @@ public class PictogramaGridActivity extends AppCompatActivity implements TextToS
             toastView.setBackgroundResource(R.color.colorAccent);
             toast.setGravity(Gravity.RIGHT | Gravity.BOTTOM, 0, 0);//BOTTOM /END
             toast.show();*/
+           // v.setBackgroundResource(Utilidades.getBackground(mItem.getCategoria()));
             Locale locSpanish = new Locale("spa", "MEX");
             textToSpeech.setLanguage(locSpanish);
             speak( mItem.getNombre() );

@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
     android:background="@color/colorPrimary_light"
-    tools:context="com.escom.tt2016.comunicadorconbd.adaptadores.PictogramaAdapter">
+    tools:context="com.escom.tt2016.comunicadorconbd.adaptadores.PictogramaGridActivity">
 
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
