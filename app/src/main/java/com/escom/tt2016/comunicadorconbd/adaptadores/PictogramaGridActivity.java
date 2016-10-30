@@ -58,10 +58,11 @@ public class PictogramaGridActivity extends AppCompatActivity implements TextToS
         picto_seleccionados.add(nuevo_pictograma);
         mostrarDatosSeleccionados(picto_seleccionados);
         View recyclerView2 = findViewById(R.id.pictograma_list_frase);
+
         assert recyclerView2 != null;
 
         adapter = new DiferenteAdapter(picto_seleccionados);
-        setupRecyclerView((RecyclerView) recyclerView2,(DiferenteAdapter) adapter);
+        setupRecyclerView((RecyclerView) recyclerView2,(DiferenteAdapter) adapter,PIC_SELECCIONADO);
 
     }
 
@@ -80,7 +81,7 @@ public class PictogramaGridActivity extends AppCompatActivity implements TextToS
         System.out.println("********");
         adapter = new DiferenteAdapter(picto);
         System.out.println("********");
-        setupRecyclerView((RecyclerView) recyclerView,(DiferenteAdapter) adapter);
+        setupRecyclerView((RecyclerView) recyclerView,(DiferenteAdapter) adapter,PIC_NORMAL);
 
     }
 
@@ -120,9 +121,15 @@ public class PictogramaGridActivity extends AppCompatActivity implements TextToS
         Log.d("agregaron", "Se  agregaron nuevos pictogramas");
         // Reading all contacts
     }
-    private void setupRecyclerView(@NonNull RecyclerView recyclerView,DiferenteAdapter adapter) {
+    private void setupRecyclerView(@NonNull RecyclerView recyclerView,DiferenteAdapter adapter,int tipo) {
+
         recyclerView.setAdapter(adapter);
-        recyclerView.setLayoutManager(new GridLayoutManager(this,5));
+        if (tipo==0){
+            recyclerView.setLayoutManager(new GridLayoutManager(this,5));
+        }else{
+            recyclerView.setLayoutManager(new GridLayoutManager(this,9));
+        }
+
         //recyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
 
         /*si cambiáramos de idea y quisiéramos mostrar los datos de forma tabular tan sólo tendríamos
@@ -257,8 +264,8 @@ public class PictogramaGridActivity extends AppCompatActivity implements TextToS
             @Override
             public void onClick(View v) {
 
-                int selectedPosition = getPosition();
-                Pictograma m= mValues.get(selectedPosition);
+                int posicion=getAdapterPosition();
+                Pictograma m= mValues.get(posicion);
 
            /* Toast toast=Toast.makeText(v.getContext(), mItem.getNombre(), Toast.LENGTH_SHORT);
 

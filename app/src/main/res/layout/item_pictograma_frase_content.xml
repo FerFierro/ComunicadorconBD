@@ -14,7 +14,7 @@
         android:layout_width="@dimen/dimPicFrase"
         android:layout_height="@dimen/dimPicFrase"
         android:layout_gravity="left"
-        android:elevation="40dp"
+
         app:srcCompat="@drawable/ic_pic_animales_buho"/>
 
     <TextView
@@ -31,7 +31,7 @@
         android:paddingBottom="8dp"
         android:paddingTop="8dp"
         android:layout_gravity="left"
-        android:textSize="12sp" />
+        android:textSize="10sp" />
 
 
 </LinearLayout>

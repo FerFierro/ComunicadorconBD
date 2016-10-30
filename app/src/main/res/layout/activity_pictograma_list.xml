@@ -25,7 +25,7 @@
             <FrameLayout
                 android:id="@+id/gv_contenedorFrase"
                 android:layout_width="match_parent"
-                android:layout_height="100dp"
+                android:layout_height="125dp"
                 android:layout_weight=".1"
                 android:background="@color/colorPrimary_light"
                 tools:ignore="RtlHardcoded" >
