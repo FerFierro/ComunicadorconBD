@@ -22,7 +22,7 @@
             android:orientation="horizontal"
             tools:ignore="DisableBaselineAlignment">
 
-            <GridView
+            <FrameLayout
                 android:id="@+id/gv_contenedorFrase"
                 android:layout_width="match_parent"
                 android:layout_height="100dp"
@@ -34,7 +34,10 @@
                 android:stretchMode="spacingWidthUniform"
                 android:layout_marginLeft="4dp"
                 android:background="@color/colorPrimary_light"
-                tools:ignore="RtlHardcoded" />
+                tools:ignore="RtlHardcoded" >
+                <include layout="@layout/pictograma_list_frase" />
+                </FrameLayout>
+
 
             <!--  android:numColumns="auto_fit" para indicarle al framework que infle la cantidad necesaria de columnas según el atributo columnWidth.
                   android:columnWidth= Especifica el ancho de cada columna de la cuadrícula GridView
@@ -93,7 +96,7 @@
                    ItemListActivity.java. Este archivo de diseño tiene dos contenidos diferentes pero con el mismo nombre
                    de archivo. Este está dirigido a teléfono y la tableta.-->
 
-                <include layout="@layout/pictograma_list" />
+                <include layout="@layout/pictograma_list_categoria" />
             </FrameLayout>
 
             <LinearLayout

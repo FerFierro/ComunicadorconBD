@@ -16,7 +16,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-//import com.escom.tt2016.comunicadorconbd.MainActivity;
+
 import com.escom.tt2016.comunicadorconbd.R;
 import com.escom.tt2016.comunicadorconbd.db.DBHelper;
 import com.escom.tt2016.comunicadorconbd.model.Pictograma;
@@ -31,18 +31,45 @@ public class PictogramaGridActivity extends AppCompatActivity implements TextToS
     private DBHelper dbHandler;
     private PictogramaAdapter adapter;
     private TextToSpeech textToSpeech;
+
+    private List<Pictograma> picto_seleccionados=new ArrayList<Pictograma>();
+    private GridLayoutManager mLayoutManager;
+    private PictogramaFraseAdapter adapterFrase;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pictograma_list);
         textToSpeech = new TextToSpeech( this, this );
-        View recyclerView = findViewById(R.id.pictograma_list);
+        View recyclerView = findViewById(R.id.pictograma_list_categoria);
         assert recyclerView != null;
 
         InicializarDatos();
         InicializarAdaptador(recyclerView);
 
 
+
+
+    }
+
+    public void Guardar(String nombre,int categoria,int idDrawable){
+        Pictograma nuevo_pictograma=new Pictograma(nombre,categoria,idDrawable);
+        picto_seleccionados.add(nuevo_pictograma);
+        mostrarDatosSeleccionados(picto_seleccionados);
+        View recyclerView2 = findViewById(R.id.pictograma_list_frase);
+        assert recyclerView2 != null;
+
+        adapter = new PictogramaAdapter(picto_seleccionados);
+        setupRecyclerView((RecyclerView) recyclerView2,(PictogramaAdapter) adapter);
+
+    }
+
+    public  void mostrarDatosSeleccionados(List<Pictograma> items){
+        Iterator m=items.iterator();
+        System.out.println("*************************************");
+        System.out.println("El arreglo contiene: "+items.size()+" elementos");
+        while (m.hasNext())
+            System.out.println("\n"+m.next());
+        System.out.println("*************************************");
     }
 
     public void InicializarAdaptador(View recyclerView){
@@ -50,6 +77,7 @@ public class PictogramaGridActivity extends AppCompatActivity implements TextToS
         List<Pictograma> picto = dbHandler.getAllUsers();
         adapter = new PictogramaAdapter(picto);
         setupRecyclerView((RecyclerView) recyclerView,(PictogramaAdapter) adapter);
+
     }
 
     public void InicializarDatos(){
@@ -134,65 +162,64 @@ public class PictogramaGridActivity extends AppCompatActivity implements TextToS
      *******************************************************************************************************/
 
     public class PictogramaAdapter extends RecyclerView.Adapter<PictogramaAdapter.PictogramaViewHolder> {
-    //private ArrayList<Pictograma> mDataSet;
-    private List<Pictograma> mValues;
+        //private ArrayList<Pictograma> mDataSet;
+        private List<Pictograma> mValues;
 
-    public PictogramaAdapter(List<Pictograma> items) {
-        this.mValues = items;
-    }
+        public PictogramaAdapter(List<Pictograma> items) {
+            this.mValues = items;
+        }
 
 
+        @Override
+        public PictogramaViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+            View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_pictograma_categoria_content, parent, false);
 
-    @Override
-    public PictogramaViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_pictograma_categoria_content, parent, false);
-
-        return new  PictogramaViewHolder(v);
-    }
-
-    @Override
-    public void onBindViewHolder(final PictogramaViewHolder holder, int position) {
-        holder.mItem = mValues.get(position);
-        // holder.mIdView.setText(mValues.get(position).id);
-        holder.mNombreView.setText(mValues.get(position).nombre);
-        holder.mImageView.setImageResource(mValues.get(position).idDrawable);
-
-        /* ************* Esta es la linea para colorear el pictograma de acuerdo a su categoria de pictograma **********************************************************************/
-        // holder.mNombreView.setBackgroundResource(Utilidades.getBackground(mValues.get(position).getCategoria())); //Solo colorear el texto
-         holder.mImageView.setBackgroundResource(Utilidades.getBackground(mValues.get(position).getCategoria())); //Colorear
-
-        //holder.mView.setBackgroundResource(Utilidades.getBackground(mValues.get(position).getCategoria())); //Colorear
-
-        /*************************************************************************************************************************************************************************/
-    }
-
-    @Override
-    public int getItemCount() {
-        return mValues.size();
-    }
-
-    public class PictogramaViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
-        //campos respectivos de un item Pictograma
-        public final View mView;
-        // public final TextView mIdView;
-        public final ImageView mImageView;
-        public final TextView mNombreView;
-
-        public Pictograma mItem;
-
-        public PictogramaViewHolder(View view) {
-            super(view);
-            mView = view;
-
-            mView.setOnClickListener(this);
-
-            // mIdView = (TextView) view.findViewById(R.id.txt_id);
-            mImageView=(ImageView) view.findViewById(R.id.iv_PicElemento_categoria_comunicador);
-            mNombreView = (TextView) view.findViewById(R.id.tv_PicElemento_categoria_comunicador);
+            return new PictogramaViewHolder(v);
         }
 
         @Override
-        public void onClick(View v) {
+        public void onBindViewHolder(final PictogramaViewHolder holder, int position) {
+            holder.mItem = mValues.get(position);
+            // holder.mIdView.setText(mValues.get(position).id);
+            holder.mNombreView.setText(mValues.get(position).nombre);
+            holder.mImageView.setImageResource(mValues.get(position).idDrawable);
+
+        /* ************* Esta es la linea para colorear el pictograma de acuerdo a su categoria de pictograma **********************************************************************/
+            // holder.mNombreView.setBackgroundResource(Utilidades.getBackground(mValues.get(position).getCategoria())); //Solo colorear el texto
+            holder.mImageView.setBackgroundResource(Utilidades.getBackground(mValues.get(position).getCategoria())); //Colorear
+
+            //holder.mView.setBackgroundResource(Utilidades.getBackground(mValues.get(position).getCategoria())); //Colorear
+
+            /*************************************************************************************************************************************************************************/
+        }
+
+        @Override
+        public int getItemCount() {
+            return mValues.size();
+        }
+
+        public class PictogramaViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+            //campos respectivos de un item Pictograma
+            public final View mView;
+            // public final TextView mIdView;
+            public final ImageView mImageView;
+            public final TextView mNombreView;
+
+            public Pictograma mItem;
+
+            public PictogramaViewHolder(View view) {
+                super(view);
+                mView = view;
+
+                mView.setOnClickListener(this);
+
+                // mIdView = (TextView) view.findViewById(R.id.txt_id);
+                mImageView = (ImageView) view.findViewById(R.id.iv_PicElemento_categoria_comunicador);
+                mNombreView = (TextView) view.findViewById(R.id.tv_PicElemento_categoria_comunicador);
+            }
+
+            @Override
+            public void onClick(View v) {
 
            /* Toast toast=Toast.makeText(v.getContext(), mItem.getNombre(), Toast.LENGTH_SHORT);
 
@@ -200,65 +227,61 @@ public class PictogramaGridActivity extends AppCompatActivity implements TextToS
             toastView.setBackgroundResource(R.color.colorAccent);
             toast.setGravity(Gravity.RIGHT | Gravity.BOTTOM, 0, 0);//BOTTOM /END
             toast.show();*/
-           // v.setBackgroundResource(Utilidades.getBackground(mItem.getCategoria()));
-            Locale locSpanish = new Locale("spa", "MEX");
-            textToSpeech.setLanguage(locSpanish);
-            speak( mItem.getNombre() );
+                // v.setBackgroundResource(Utilidades.getBackground(mItem.getCategoria()));
+                Locale locSpanish = new Locale("spa", "MEX");
+                textToSpeech.setLanguage(locSpanish);
+                speak(mItem.getNombre());
 
-            //Instanciamos un nuevo Toast
-            Toast _mToast = new Toast(getApplicationContext());
+                //Instanciamos un nuevo Toast
+                Toast _mToast = new Toast(getApplicationContext());
 
-            //Definimos la ubicación del Toast
-            _mToast.setGravity(Gravity.CENTER | Gravity.RIGHT , 0, 0);
-            _mToast.setDuration(Toast.LENGTH_SHORT);
-
-
-            //Instanciamos un LayoutInflater donde definimos el archivo XML a utilizar (R.layout.layout_toast) e
-            // indicamos el el objeto [LinearLayout] contenedor (R.id.Linearlayout_toast)
-            LayoutInflater inflater = getLayoutInflater();
-            View custom_toast = inflater.inflate(R.layout.toast,
-                    (ViewGroup) findViewById(R.id.Linearlayout_toast));
-
-            //Instanciamos un nuevo TextView y lo asociamos al del layout
-            TextView textToast = (TextView) custom_toast.findViewById(R.id.toast_textView);
-
-            //Aqui definimos el texto que se mostrará en el Toast
-            textToast.setText(mItem.getNombre());
-
-            //Añadimos la vista al Toast y lo mostramos
-            _mToast.setView(custom_toast);
-            _mToast.show();
-
-            Guardar(mItem.getNombre(),mItem.getCategoria(),mItem.getIdDrawable());
+                //Definimos la ubicación del Toast
+                _mToast.setGravity(Gravity.CENTER | Gravity.RIGHT, 0, 0);
+                _mToast.setDuration(Toast.LENGTH_SHORT);
 
 
+                //Instanciamos un LayoutInflater donde definimos el archivo XML a utilizar (R.layout.layout_toast) e
+                // indicamos el el objeto [LinearLayout] contenedor (R.id.Linearlayout_toast)
+                LayoutInflater inflater = getLayoutInflater();
+                View custom_toast = inflater.inflate(R.layout.toast,
+                        (ViewGroup) findViewById(R.id.Linearlayout_toast));
 
+                //Instanciamos un nuevo TextView y lo asociamos al del layout
+                TextView textToast = (TextView) custom_toast.findViewById(R.id.toast_textView);
+
+                //Aqui definimos el texto que se mostrará en el Toast
+                textToast.setText(mItem.getNombre());
+
+                //Añadimos la vista al Toast y lo mostramos
+                _mToast.setView(custom_toast);
+                _mToast.show();
+
+                Guardar(mItem.getNombre(), mItem.getCategoria(), mItem.getIdDrawable());
+
+
+            }
         }
-    }
 ////////////////////////////////////////////////////////////////////////////
+public class FraseViewHolder extends RecyclerView.ViewHolder{
+    public final View mView;
 
-        public List<Pictograma> picto_seleccionados=new ArrayList<Pictograma>();
-        public void Guardar(String nombre,int categoria,int idDrawable){
-            Pictograma nuevo_pictograma=new Pictograma(nombre,categoria,idDrawable);
-            picto_seleccionados.add(nuevo_pictograma);
-            mostrarDatosSeleccionados(picto_seleccionados);
-
-        }
-
-        public  void mostrarDatosSeleccionados(List<Pictograma> items){
-            Iterator m=items.iterator();
-            System.out.println("*************************************");
-            System.out.println("El arreglo contiene: "+items.size()+" elementos");
-            while (m.hasNext())
-                System.out.println("\n"+m.next());
-            System.out.println("*************************************");
-        }
+    public  final ImageView mImageViewFrase;
+    public  final TextView mNombreViewFrase;
+    public  Pictograma mItem;
 
 
-    ////////////////////////////////////////////////////////////////////
-    @Override
-    public void onAttachedToRecyclerView(RecyclerView recyclerView) {
-        super.onAttachedToRecyclerView(recyclerView);
+    public FraseViewHolder (View view) {
+        super(view);
+        mView = view;
+        mImageViewFrase=(ImageView) view.findViewById(R.id.iv_PicElemento_frase_comunicador);
+        mNombreViewFrase=(TextView) view.findViewById(R.id.tv_PicElemento_frase_comunicador);
     }
 }
+
+        ////////////////////////////////////////////////////////////////////
+        @Override
+        public void onAttachedToRecyclerView(RecyclerView recyclerView) {
+            super.onAttachedToRecyclerView(recyclerView);
+        }
+    }
 }
