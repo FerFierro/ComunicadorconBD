@@ -21,6 +21,9 @@ import com.escom.tt2016.comunicadorconbd.R;
 import com.escom.tt2016.comunicadorconbd.db.DBHelper;
 import com.escom.tt2016.comunicadorconbd.model.Pictograma;
 import com.escom.tt2016.comunicadorconbd.Utilidades;
+
+import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Locale;
 
@@ -36,6 +39,20 @@ public class PictogramaGridActivity extends AppCompatActivity implements TextToS
         View recyclerView = findViewById(R.id.pictograma_list);
         assert recyclerView != null;
 
+        InicializarDatos();
+        InicializarAdaptador(recyclerView);
+
+
+    }
+
+    public void InicializarAdaptador(View recyclerView){
+        Log.d("leyendo", "Se estan leyendo los datos de la base de datos");
+        List<Pictograma> picto = dbHandler.getAllUsers();
+        adapter = new PictogramaAdapter(picto);
+        setupRecyclerView((RecyclerView) recyclerView,(PictogramaAdapter) adapter);
+    }
+
+    public void InicializarDatos(){
         dbHandler = new DBHelper(this);
         Log.d("agregar", "Se  agregaran nuevos pictogramas");
         dbHandler.addUser(new Pictograma("Aguila", 1,R.drawable.ic_pic_animales_aguila));
@@ -70,11 +87,6 @@ public class PictogramaGridActivity extends AppCompatActivity implements TextToS
 
         Log.d("agregaron", "Se  agregaron nuevos pictogramas");
         // Reading all contacts
-        Log.d("leyendo", "Se estan leyendo los datos de la base de datos");
-        List<Pictograma> picto = dbHandler.getAllUsers();
-        adapter = new PictogramaAdapter(picto);
-        setupRecyclerView((RecyclerView) recyclerView,(PictogramaAdapter) adapter);
-
     }
     private void setupRecyclerView(@NonNull RecyclerView recyclerView,PictogramaAdapter adapter) {
         recyclerView.setAdapter(adapter);
@@ -217,13 +229,30 @@ public class PictogramaGridActivity extends AppCompatActivity implements TextToS
             _mToast.setView(custom_toast);
             _mToast.show();
 
+            Guardar(mItem.getNombre(),mItem.getCategoria(),mItem.getIdDrawable());
+
 
 
         }
     }
 ////////////////////////////////////////////////////////////////////////////
 
+        public List<Pictograma> picto_seleccionados=new ArrayList<Pictograma>();
+        public void Guardar(String nombre,int categoria,int idDrawable){
+            Pictograma nuevo_pictograma=new Pictograma(nombre,categoria,idDrawable);
+            picto_seleccionados.add(nuevo_pictograma);
+            mostrarDatosSeleccionados(picto_seleccionados);
 
+        }
+
+        public  void mostrarDatosSeleccionados(List<Pictograma> items){
+            Iterator m=items.iterator();
+            System.out.println("*************************************");
+            System.out.println("El arreglo contiene: "+items.size()+" elementos");
+            while (m.hasNext())
+                System.out.println("\n"+m.next());
+            System.out.println("*************************************");
+        }
 
 
     ////////////////////////////////////////////////////////////////////

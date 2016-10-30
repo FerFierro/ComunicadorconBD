@@ -51,7 +51,9 @@ public class Pictograma {
 
     @Override
     public String toString() {
-        return nombre;
+        return ("Nombre: "     +nombre+"\n" +
+                "Categoria: "  +categoria+"\n"+
+                "IdDrawable: " +idDrawable+"\n");
     }
 
 }
