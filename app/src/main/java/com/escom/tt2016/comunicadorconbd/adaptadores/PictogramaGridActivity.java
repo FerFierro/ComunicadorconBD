@@ -22,6 +22,8 @@ import com.escom.tt2016.comunicadorconbd.db.DBHelper;
 import com.escom.tt2016.comunicadorconbd.model.Pictograma;
 import com.escom.tt2016.comunicadorconbd.Utilidades;
 
+import static com.escom.tt2016.comunicadorconbd.model.Pictograma.PIC_NORMAL;
+import static com.escom.tt2016.comunicadorconbd.model.Pictograma.PIC_SELECCIONADO;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -29,7 +31,7 @@ import java.util.Locale;
 
 public class PictogramaGridActivity extends AppCompatActivity implements TextToSpeech.OnInitListener{
     private DBHelper dbHandler;
-    private PictogramaAdapter adapter;
+    private DiferenteAdapter adapter;
     private TextToSpeech textToSpeech;
 
     private List<Pictograma> picto_seleccionados=new ArrayList<Pictograma>();
@@ -51,15 +53,15 @@ public class PictogramaGridActivity extends AppCompatActivity implements TextToS
 
     }
 
-    public void Guardar(String nombre,int categoria,int idDrawable){
-        Pictograma nuevo_pictograma=new Pictograma(nombre,categoria,idDrawable);
+    public void Guardar(String nombre,int categoria,int idDrawable,int tipo){
+        Pictograma nuevo_pictograma=new Pictograma(nombre,categoria,idDrawable,tipo);
         picto_seleccionados.add(nuevo_pictograma);
         mostrarDatosSeleccionados(picto_seleccionados);
         View recyclerView2 = findViewById(R.id.pictograma_list_frase);
         assert recyclerView2 != null;
 
-        adapter = new PictogramaAdapter(picto_seleccionados);
-        setupRecyclerView((RecyclerView) recyclerView2,(PictogramaAdapter) adapter);
+        adapter = new DiferenteAdapter(picto_seleccionados);
+        setupRecyclerView((RecyclerView) recyclerView2,(DiferenteAdapter) adapter);
 
     }
 
@@ -75,48 +77,50 @@ public class PictogramaGridActivity extends AppCompatActivity implements TextToS
     public void InicializarAdaptador(View recyclerView){
         Log.d("leyendo", "Se estan leyendo los datos de la base de datos");
         List<Pictograma> picto = dbHandler.getAllUsers();
-        adapter = new PictogramaAdapter(picto);
-        setupRecyclerView((RecyclerView) recyclerView,(PictogramaAdapter) adapter);
+        System.out.println("********");
+        adapter = new DiferenteAdapter(picto);
+        System.out.println("********");
+        setupRecyclerView((RecyclerView) recyclerView,(DiferenteAdapter) adapter);
 
     }
 
     public void InicializarDatos(){
         dbHandler = new DBHelper(this);
         Log.d("agregar", "Se  agregaran nuevos pictogramas");
-        dbHandler.addUser(new Pictograma("Aguila", 1,R.drawable.ic_pic_animales_aguila));
-        dbHandler.addUser(new Pictograma("Borrego cimarron", 1,R.drawable.ic_pic_animales_borrego_cimarron));
-        dbHandler.addUser(new Pictograma("Buho", 1,R.drawable.ic_pic_animales_buho));
-        dbHandler.addUser(new Pictograma("Camaleon", 1,R.drawable.ic_pic_animales_camaleon));
-        dbHandler.addUser(new Pictograma("Conejo", 1,R.drawable.ic_pic_animales_conejo));
-        dbHandler.addUser(new Pictograma("Jirafa", 1,R.drawable.ic_pic_animales_jirafa));
-        dbHandler.addUser(new Pictograma("Libelula", 1,R.drawable.ic_pic_animales_libelula));
-        dbHandler.addUser(new Pictograma("Loro", 1,R.drawable.ic_pic_animales_loro));
-        dbHandler.addUser(new Pictograma("Mapache", 1,R.drawable.ic_pic_animales_mapache));
-        dbHandler.addUser(new Pictograma("Vaca", 1,R.drawable.ic_pic_animales_vaca));
+        dbHandler.addUser(new Pictograma("Aguila", 1,R.drawable.ic_pic_animales_aguila,Pictograma.PIC_NORMAL));
+        dbHandler.addUser(new Pictograma("Borrego cimarron", 1,R.drawable.ic_pic_animales_borrego_cimarron,Pictograma.PIC_NORMAL));
+        dbHandler.addUser(new Pictograma("Buho", 1,R.drawable.ic_pic_animales_buho,Pictograma.PIC_NORMAL));
+        dbHandler.addUser(new Pictograma("Camaleon", 1,R.drawable.ic_pic_animales_camaleon,Pictograma.PIC_NORMAL));
+        dbHandler.addUser(new Pictograma("Conejo", 1,R.drawable.ic_pic_animales_conejo,Pictograma.PIC_NORMAL));
+        dbHandler.addUser(new Pictograma("Jirafa", 1,R.drawable.ic_pic_animales_jirafa,Pictograma.PIC_NORMAL));
+        dbHandler.addUser(new Pictograma("Libelula", 1,R.drawable.ic_pic_animales_libelula,Pictograma.PIC_NORMAL));
+        dbHandler.addUser(new Pictograma("Loro", 1,R.drawable.ic_pic_animales_loro,Pictograma.PIC_NORMAL));
+        dbHandler.addUser(new Pictograma("Mapache", 1,R.drawable.ic_pic_animales_mapache,Pictograma.PIC_NORMAL));
+        dbHandler.addUser(new Pictograma("Vaca", 1,R.drawable.ic_pic_animales_vaca,Pictograma.PIC_NORMAL));
 
-        dbHandler.addUser(new Pictograma("Coca", 2,R.drawable.ic_pic_alimentos_coke));
-        dbHandler.addUser(new Pictograma("Hok dog", 2,R.drawable.ic_pic_alimentos_dog));
-        dbHandler.addUser(new Pictograma("Dona", 2,R.drawable.ic_pic_alimentos_dona));
-        dbHandler.addUser(new Pictograma("Hamburguesa", 2,R.drawable.ic_pic_alimentos_hamburger));
-        dbHandler.addUser(new Pictograma("huevo", 2,R.drawable.ic_pic_alimentos_huevo));
+        dbHandler.addUser(new Pictograma("Coca", 2,R.drawable.ic_pic_alimentos_coke,Pictograma.PIC_NORMAL));
+        dbHandler.addUser(new Pictograma("Hok dog", 2,R.drawable.ic_pic_alimentos_dog,Pictograma.PIC_NORMAL));
+        dbHandler.addUser(new Pictograma("Dona", 2,R.drawable.ic_pic_alimentos_dona,Pictograma.PIC_NORMAL));
+        dbHandler.addUser(new Pictograma("Hamburguesa", 2,R.drawable.ic_pic_alimentos_hamburger,Pictograma.PIC_NORMAL));
+        dbHandler.addUser(new Pictograma("huevo", 2,R.drawable.ic_pic_alimentos_huevo,Pictograma.PIC_NORMAL));
 
-        dbHandler.addUser(new Pictograma("Hermana", 3,R.drawable.ic_pic_familia_hermana));
-        dbHandler.addUser(new Pictograma("Hermano", 3,R.drawable.ic_pic_familia_hermano));
-        dbHandler.addUser(new Pictograma("Prima", 3,R.drawable.ic_pic_familia_prima));
-        dbHandler.addUser(new Pictograma("Primo", 3,R.drawable.ic_pic_familia_primo));
-        dbHandler.addUser(new Pictograma("Vaca", 3,R.drawable.ic_pic_animales_vaca));
+        dbHandler.addUser(new Pictograma("Hermana", 3,R.drawable.ic_pic_familia_hermana,Pictograma.PIC_NORMAL));
+        dbHandler.addUser(new Pictograma("Hermano", 3,R.drawable.ic_pic_familia_hermano,Pictograma.PIC_NORMAL));
+        dbHandler.addUser(new Pictograma("Prima", 3,R.drawable.ic_pic_familia_prima,Pictograma.PIC_NORMAL));
+        dbHandler.addUser(new Pictograma("Primo", 3,R.drawable.ic_pic_familia_primo,Pictograma.PIC_NORMAL));
+        dbHandler.addUser(new Pictograma("Vaca", 3,R.drawable.ic_pic_animales_vaca,Pictograma.PIC_NORMAL));
 
-        dbHandler.addUser(new Pictograma("Astronauta", 4,R.drawable.ic_pic_profesiones_astronauta));
-        dbHandler.addUser(new Pictograma("Capitán", 4,R.drawable.ic_pic_profesiones_capitan));
-        dbHandler.addUser(new Pictograma("Detective", 4,R.drawable.ic_pic_profesiones_detective));
-        dbHandler.addUser(new Pictograma("Doctor", 4,R.drawable.ic_pic_profesiones_doctor));
-        dbHandler.addUser(new Pictograma("Ingeniero", 4,R.drawable.ic_pic_profesiones_ingeniero));
+        dbHandler.addUser(new Pictograma("Astronauta", 4,R.drawable.ic_pic_profesiones_astronauta,Pictograma.PIC_NORMAL));
+        dbHandler.addUser(new Pictograma("Capitán", 4,R.drawable.ic_pic_profesiones_capitan,Pictograma.PIC_NORMAL));
+        dbHandler.addUser(new Pictograma("Detective", 4,R.drawable.ic_pic_profesiones_detective,Pictograma.PIC_NORMAL));
+        dbHandler.addUser(new Pictograma("Doctor", 4,R.drawable.ic_pic_profesiones_doctor,Pictograma.PIC_NORMAL));
+        dbHandler.addUser(new Pictograma("Ingeniero", 4,R.drawable.ic_pic_profesiones_ingeniero,Pictograma.PIC_NORMAL));
 
 
         Log.d("agregaron", "Se  agregaron nuevos pictogramas");
         // Reading all contacts
     }
-    private void setupRecyclerView(@NonNull RecyclerView recyclerView,PictogramaAdapter adapter) {
+    private void setupRecyclerView(@NonNull RecyclerView recyclerView,DiferenteAdapter adapter) {
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new GridLayoutManager(this,5));
         //recyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
@@ -161,32 +165,54 @@ public class PictogramaGridActivity extends AppCompatActivity implements TextToS
      *                                    Fin de TextoSpeech
      *******************************************************************************************************/
 
-    public class PictogramaAdapter extends RecyclerView.Adapter<PictogramaAdapter.PictogramaViewHolder> {
+    public class DiferenteAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         //private ArrayList<Pictograma> mDataSet;
         private List<Pictograma> mValues;
 
-        public PictogramaAdapter(List<Pictograma> items) {
+        public DiferenteAdapter(List<Pictograma> items) {
             this.mValues = items;
         }
 
 
         @Override
-        public PictogramaViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-            View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_pictograma_categoria_content, parent, false);
+        public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+            View view;
+            switch (viewType){
+                case PIC_NORMAL:
+                    view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_pictograma_categoria_content, parent, false);
+                    return new PictogramaViewHolder(view);
+                case PIC_SELECCIONADO:
+                    view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_pictograma_frase_content, parent, false);
+                    return new FraseViewHolder(view);
 
-            return new PictogramaViewHolder(v);
+            }
+            return null;
         }
 
         @Override
-        public void onBindViewHolder(final PictogramaViewHolder holder, int position) {
-            holder.mItem = mValues.get(position);
-            // holder.mIdView.setText(mValues.get(position).id);
-            holder.mNombreView.setText(mValues.get(position).nombre);
-            holder.mImageView.setImageResource(mValues.get(position).idDrawable);
+        public void onBindViewHolder( RecyclerView.ViewHolder holder, int position) {
+            Pictograma object= mValues.get(position);
+            if (object != null) {
+                switch (object.getTipo()) {
+                    case PIC_NORMAL:
+                        ((PictogramaViewHolder) holder).mNombreView.setText(mValues.get(position).nombre);
+                        ((PictogramaViewHolder) holder).mImageView.setImageResource(mValues.get(position).idDrawable);
+                        ((PictogramaViewHolder) holder).mImageView.setBackgroundResource(Utilidades.getBackground(mValues.get(position).getCategoria()));
+
+                        break;
+                    case PIC_SELECCIONADO:
+                        ((FraseViewHolder) holder).mNombreViewFrase.setText(mValues.get(position).nombre);
+                        ((FraseViewHolder) holder).mImageViewFrase.setImageResource(mValues.get(position).idDrawable);
+                        ((FraseViewHolder) holder).mImageViewFrase.setBackgroundResource(Utilidades.getBackground(mValues.get(position).getCategoria()));
+
+                        break;
+                }
+            }
+
 
         /* ************* Esta es la linea para colorear el pictograma de acuerdo a su categoria de pictograma **********************************************************************/
             // holder.mNombreView.setBackgroundResource(Utilidades.getBackground(mValues.get(position).getCategoria())); //Solo colorear el texto
-            holder.mImageView.setBackgroundResource(Utilidades.getBackground(mValues.get(position).getCategoria())); //Colorear
+           // holder.mImageView.setBackgroundResource(Utilidades.getBackground(mValues.get(position).getCategoria())); //Colorear
 
             //holder.mView.setBackgroundResource(Utilidades.getBackground(mValues.get(position).getCategoria())); //Colorear
 
@@ -197,21 +223,31 @@ public class PictogramaGridActivity extends AppCompatActivity implements TextToS
         public int getItemCount() {
             return mValues.size();
         }
+        @Override
+        public int getItemViewType(int position) {
+            if (mValues != null) {
+               final  Pictograma object = mValues.get(position);
+                if (object != null) {
+                    return object.getTipo();
+                }
+            }
+            return 0;
+        }
 
-        public class PictogramaViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+        public  class PictogramaViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
             //campos respectivos de un item Pictograma
-            public final View mView;
+
             // public final TextView mIdView;
             public final ImageView mImageView;
-            public final TextView mNombreView;
+            private final TextView mNombreView;
 
-            public Pictograma mItem;
+            Pictograma mItem;
 
             public PictogramaViewHolder(View view) {
                 super(view);
-                mView = view;
 
-                mView.setOnClickListener(this);
+
+                view.setOnClickListener(this);
 
                 // mIdView = (TextView) view.findViewById(R.id.txt_id);
                 mImageView = (ImageView) view.findViewById(R.id.iv_PicElemento_categoria_comunicador);
@@ -221,16 +257,19 @@ public class PictogramaGridActivity extends AppCompatActivity implements TextToS
             @Override
             public void onClick(View v) {
 
+                int selectedPosition = getPosition();
+                Pictograma m= mValues.get(selectedPosition);
+
            /* Toast toast=Toast.makeText(v.getContext(), mItem.getNombre(), Toast.LENGTH_SHORT);
 
             View toastView = toast.getView();
             toastView.setBackgroundResource(R.color.colorAccent);
             toast.setGravity(Gravity.RIGHT | Gravity.BOTTOM, 0, 0);//BOTTOM /END
             toast.show();*/
-                // v.setBackgroundResource(Utilidades.getBackground(mItem.getCategoria()));
+               // v.setBackgroundResource(Utilidades.getBackground(m.getCategoria()));
                 Locale locSpanish = new Locale("spa", "MEX");
                 textToSpeech.setLanguage(locSpanish);
-                speak(mItem.getNombre());
+               speak(m.getNombre());
 
                 //Instanciamos un nuevo Toast
                 Toast _mToast = new Toast(getApplicationContext());
@@ -250,13 +289,13 @@ public class PictogramaGridActivity extends AppCompatActivity implements TextToS
                 TextView textToast = (TextView) custom_toast.findViewById(R.id.toast_textView);
 
                 //Aqui definimos el texto que se mostrará en el Toast
-                textToast.setText(mItem.getNombre());
+                textToast.setText(m.getNombre());
 
                 //Añadimos la vista al Toast y lo mostramos
                 _mToast.setView(custom_toast);
                 _mToast.show();
 
-                Guardar(mItem.getNombre(), mItem.getCategoria(), mItem.getIdDrawable());
+                Guardar(m.getNombre(), m.getCategoria(), m.getIdDrawable(),Pictograma.PIC_SELECCIONADO);
 
 
             }

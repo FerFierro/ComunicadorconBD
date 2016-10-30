@@ -31,7 +31,7 @@
         android:paddingBottom="8dp"
         android:paddingTop="8dp"
         android:layout_gravity="left"
-         />
+        android:textSize="12sp" />
 
 
 </LinearLayout>

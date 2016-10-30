@@ -52,7 +52,7 @@ public class DBHelper  extends SQLiteOpenHelper{
     public static final  String NOMBRE="nombre";
     public static final  String CATEGORIA="categoria";
     public static final  String ID_DRAWABLE="idDrawable";
-
+    public static final  String TIPO="tipo";
 
 
     //sentencia para crear la tabla pictograma
@@ -61,7 +61,8 @@ public class DBHelper  extends SQLiteOpenHelper{
             + ID + " INTEGER PRIMARY KEY AUTOINCREMENT,"
             + NOMBRE +" TEXT NOT NULL,"
             + CATEGORIA +" INTEGER,"
-            + ID_DRAWABLE +" INTEGER );";
+            + ID_DRAWABLE +" INTEGER,"
+            + TIPO +" INTEGER);";
 
 
 
@@ -72,6 +73,7 @@ public class DBHelper  extends SQLiteOpenHelper{
         values.put(NOMBRE, picto.getNombre());
         values.put(CATEGORIA, picto.getCategoria());
         values.put(ID_DRAWABLE,picto.getIdDrawable());
+        values.put(TIPO,picto.getTipo());
 
         db.insert(TABLE_PICTOGRAMA, null, values); //Insert query to store the record in the database
         db.close();
@@ -86,13 +88,13 @@ public class DBHelper  extends SQLiteOpenHelper{
         if (cursor != null)
             cursor.moveToFirst();
 
-        Pictograma pic = new Pictograma(cursor.getString(1), cursor.getInt(2),cursor.getInt(3));
+        Pictograma pic = new Pictograma(cursor.getString(1), cursor.getInt(2),cursor.getInt(3),cursor.getInt(4));
         return pic;
     }
 
     /*getAllUsers() will return the list of all users*/
     public List<Pictograma> getAllUsers() {
-        List<Pictograma> usersList = new ArrayList<Pictograma>();
+        List<Pictograma> usersList = new ArrayList<>();
         String selectQuery = "SELECT  * FROM " + TABLE_PICTOGRAMA;
         SQLiteDatabase db = this.getReadableDatabase();
 
@@ -101,7 +103,7 @@ public class DBHelper  extends SQLiteOpenHelper{
         // looping through all rows and adding to list
         if (cursor.moveToFirst()) {
             do {
-                Pictograma pic = new Pictograma(cursor.getString(1), cursor.getInt(2),cursor.getInt(3));
+                Pictograma pic = new Pictograma(cursor.getString(1), cursor.getInt(2),cursor.getInt(3),cursor.getInt(4));
                 usersList.add(pic);
             } while (cursor.moveToNext());
         }

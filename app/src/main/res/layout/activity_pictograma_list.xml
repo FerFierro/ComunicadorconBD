@@ -27,12 +27,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="100dp"
                 android:layout_weight=".1"
-                android:numColumns="auto_fit"
-                android:columnWidth="@dimen/dimPicFrase"
-                android:verticalSpacing="2dp"
-                android:horizontalSpacing="2dp"
-                android:stretchMode="spacingWidthUniform"
-                android:layout_marginLeft="4dp"
                 android:background="@color/colorPrimary_light"
                 tools:ignore="RtlHardcoded" >
                 <include layout="@layout/pictograma_list_frase" />
@@ -88,7 +82,7 @@
             <FrameLayout
                 android:id="@+id/frameLayout"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_weight=".1"
                 app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
