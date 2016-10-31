@@ -48,10 +48,64 @@ public class PictogramaGridActivity extends AppCompatActivity implements TextToS
         InicializarDatos();
         InicializarAdaptador(recyclerView);
 
+    }
 
 
+  /////////////////////////////////////////////////////////////////////////////
+
+    public void playFrase(View view){
+
+        String x= getTextDatosSeleccionados(picto_seleccionados);
+        speak(x);
+
+        //Toast.makeText(getApplicationContext(), x , Toast.LENGTH_LONG).show();
+    }
+
+    public void deleteFrase(View view){
+
+        getTextDatosSeleccionados2(picto_seleccionados);
+
+
+//        Toast.makeText(getApplicationContext(), x , Toast.LENGTH_LONG).show();
+    }
+
+    public String getTextDatosSeleccionados(List<Pictograma> items){
+        String frase="";
+
+        for(int i=0; i<items.size(); i++){
+            frase += items.get(i).getNombre()+ " ";
+        }
+
+        return frase;
+    }
+
+    public void getTextDatosSeleccionados2(List<Pictograma> items){
+
+        picto_seleccionados.clear();
+        mostrarDatosSeleccionados(picto_seleccionados);
+        View recyclerView2 = findViewById(R.id.pictograma_list_frase);
+
+        assert recyclerView2 != null;
+
+        adapter = new DiferenteAdapter(picto_seleccionados);
+        setupRecyclerView((RecyclerView) recyclerView2,(DiferenteAdapter) adapter,PIC_SELECCIONADO);
 
     }
+
+    public void Delete(int index){
+        picto_seleccionados.remove(index);
+        mostrarDatosSeleccionados(picto_seleccionados);
+        View recyclerView2 = findViewById(R.id.pictograma_list_frase);
+
+        assert recyclerView2 != null;
+
+        adapter = new DiferenteAdapter(picto_seleccionados);
+        setupRecyclerView((RecyclerView) recyclerView2,(DiferenteAdapter) adapter,PIC_SELECCIONADO);
+
+    }
+
+
+/////////////////////////////////////////////////////////////////////////
 
     public void Guardar(String nombre,int categoria,int idDrawable,int tipo){
         Pictograma nuevo_pictograma=new Pictograma(nombre,categoria,idDrawable,tipo);
@@ -87,38 +141,46 @@ public class PictogramaGridActivity extends AppCompatActivity implements TextToS
 
     public void InicializarDatos(){
         dbHandler = new DBHelper(this);
-        Log.d("agregar", "Se  agregaran nuevos pictogramas");
-        dbHandler.addUser(new Pictograma("Aguila", 1,R.drawable.ic_pic_animales_aguila,Pictograma.PIC_NORMAL));
-        dbHandler.addUser(new Pictograma("Borrego cimarron", 1,R.drawable.ic_pic_animales_borrego_cimarron,Pictograma.PIC_NORMAL));
-        dbHandler.addUser(new Pictograma("Buho", 1,R.drawable.ic_pic_animales_buho,Pictograma.PIC_NORMAL));
-        dbHandler.addUser(new Pictograma("Camaleon", 1,R.drawable.ic_pic_animales_camaleon,Pictograma.PIC_NORMAL));
-        dbHandler.addUser(new Pictograma("Conejo", 1,R.drawable.ic_pic_animales_conejo,Pictograma.PIC_NORMAL));
-        dbHandler.addUser(new Pictograma("Jirafa", 1,R.drawable.ic_pic_animales_jirafa,Pictograma.PIC_NORMAL));
-        dbHandler.addUser(new Pictograma("Libelula", 1,R.drawable.ic_pic_animales_libelula,Pictograma.PIC_NORMAL));
-        dbHandler.addUser(new Pictograma("Loro", 1,R.drawable.ic_pic_animales_loro,Pictograma.PIC_NORMAL));
-        dbHandler.addUser(new Pictograma("Mapache", 1,R.drawable.ic_pic_animales_mapache,Pictograma.PIC_NORMAL));
-        dbHandler.addUser(new Pictograma("Vaca", 1,R.drawable.ic_pic_animales_vaca,Pictograma.PIC_NORMAL));
 
-        dbHandler.addUser(new Pictograma("Coca", 2,R.drawable.ic_pic_alimentos_coke,Pictograma.PIC_NORMAL));
-        dbHandler.addUser(new Pictograma("Hok dog", 2,R.drawable.ic_pic_alimentos_dog,Pictograma.PIC_NORMAL));
-        dbHandler.addUser(new Pictograma("Dona", 2,R.drawable.ic_pic_alimentos_dona,Pictograma.PIC_NORMAL));
-        dbHandler.addUser(new Pictograma("Hamburguesa", 2,R.drawable.ic_pic_alimentos_hamburger,Pictograma.PIC_NORMAL));
-        dbHandler.addUser(new Pictograma("huevo", 2,R.drawable.ic_pic_alimentos_huevo,Pictograma.PIC_NORMAL));
+        Log.d("count", "--> "+dbHandler.count());
 
-        dbHandler.addUser(new Pictograma("Hermana", 3,R.drawable.ic_pic_familia_hermana,Pictograma.PIC_NORMAL));
-        dbHandler.addUser(new Pictograma("Hermano", 3,R.drawable.ic_pic_familia_hermano,Pictograma.PIC_NORMAL));
-        dbHandler.addUser(new Pictograma("Prima", 3,R.drawable.ic_pic_familia_prima,Pictograma.PIC_NORMAL));
-        dbHandler.addUser(new Pictograma("Primo", 3,R.drawable.ic_pic_familia_primo,Pictograma.PIC_NORMAL));
-        dbHandler.addUser(new Pictograma("Vaca", 3,R.drawable.ic_pic_animales_vaca,Pictograma.PIC_NORMAL));
+        if(dbHandler.count()==0){
+            Log.d("agregar", "Se  agregaran nuevos pictogramas");
 
-        dbHandler.addUser(new Pictograma("Astronauta", 4,R.drawable.ic_pic_profesiones_astronauta,Pictograma.PIC_NORMAL));
-        dbHandler.addUser(new Pictograma("Capitán", 4,R.drawable.ic_pic_profesiones_capitan,Pictograma.PIC_NORMAL));
-        dbHandler.addUser(new Pictograma("Detective", 4,R.drawable.ic_pic_profesiones_detective,Pictograma.PIC_NORMAL));
-        dbHandler.addUser(new Pictograma("Doctor", 4,R.drawable.ic_pic_profesiones_doctor,Pictograma.PIC_NORMAL));
-        dbHandler.addUser(new Pictograma("Ingeniero", 4,R.drawable.ic_pic_profesiones_ingeniero,Pictograma.PIC_NORMAL));
+            dbHandler.addUser(new Pictograma("Aguila", 1,R.drawable.ic_pic_animales_aguila,Pictograma.PIC_NORMAL));
+            dbHandler.addUser(new Pictograma("Borrego cimarron", 1,R.drawable.ic_pic_animales_borrego_cimarron,Pictograma.PIC_NORMAL));
+            dbHandler.addUser(new Pictograma("Buho", 1,R.drawable.ic_pic_animales_buho,Pictograma.PIC_NORMAL));
+            dbHandler.addUser(new Pictograma("Camaleon", 1,R.drawable.ic_pic_animales_camaleon,Pictograma.PIC_NORMAL));
+            dbHandler.addUser(new Pictograma("Conejo", 1,R.drawable.ic_pic_animales_conejo,Pictograma.PIC_NORMAL));
+            dbHandler.addUser(new Pictograma("Jirafa", 1,R.drawable.ic_pic_animales_jirafa,Pictograma.PIC_NORMAL));
+            dbHandler.addUser(new Pictograma("Libelula", 1,R.drawable.ic_pic_animales_libelula,Pictograma.PIC_NORMAL));
+            dbHandler.addUser(new Pictograma("Loro", 1,R.drawable.ic_pic_animales_loro,Pictograma.PIC_NORMAL));
+            dbHandler.addUser(new Pictograma("Mapache", 1,R.drawable.ic_pic_animales_mapache,Pictograma.PIC_NORMAL));
+            dbHandler.addUser(new Pictograma("Vaca", 1,R.drawable.ic_pic_animales_vaca,Pictograma.PIC_NORMAL));
+
+            dbHandler.addUser(new Pictograma("Coca", 2,R.drawable.ic_pic_alimentos_coke,Pictograma.PIC_NORMAL));
+            dbHandler.addUser(new Pictograma("Hok dog", 2,R.drawable.ic_pic_alimentos_dog,Pictograma.PIC_NORMAL));
+            dbHandler.addUser(new Pictograma("Dona", 2,R.drawable.ic_pic_alimentos_dona,Pictograma.PIC_NORMAL));
+            dbHandler.addUser(new Pictograma("Hamburguesa", 2,R.drawable.ic_pic_alimentos_hamburger,Pictograma.PIC_NORMAL));
+            dbHandler.addUser(new Pictograma("huevo", 2,R.drawable.ic_pic_alimentos_huevo,Pictograma.PIC_NORMAL));
+
+            dbHandler.addUser(new Pictograma("Hermana", 3,R.drawable.ic_pic_familia_hermana,Pictograma.PIC_NORMAL));
+            dbHandler.addUser(new Pictograma("Hermano", 3,R.drawable.ic_pic_familia_hermano,Pictograma.PIC_NORMAL));
+            dbHandler.addUser(new Pictograma("Prima", 3,R.drawable.ic_pic_familia_prima,Pictograma.PIC_NORMAL));
+            dbHandler.addUser(new Pictograma("Primo", 3,R.drawable.ic_pic_familia_primo,Pictograma.PIC_NORMAL));
+            dbHandler.addUser(new Pictograma("Vaca", 3,R.drawable.ic_pic_animales_vaca,Pictograma.PIC_NORMAL));
+
+            dbHandler.addUser(new Pictograma("Astronauta", 4,R.drawable.ic_pic_profesiones_astronauta,Pictograma.PIC_NORMAL));
+            dbHandler.addUser(new Pictograma("Capitán", 4,R.drawable.ic_pic_profesiones_capitan,Pictograma.PIC_NORMAL));
+            dbHandler.addUser(new Pictograma("Detective", 4,R.drawable.ic_pic_profesiones_detective,Pictograma.PIC_NORMAL));
+            dbHandler.addUser(new Pictograma("Doctor", 4,R.drawable.ic_pic_profesiones_doctor,Pictograma.PIC_NORMAL));
+            dbHandler.addUser(new Pictograma("Ingeniero", 4,R.drawable.ic_pic_profesiones_ingeniero,Pictograma.PIC_NORMAL));
 
 
-        Log.d("agregaron", "Se  agregaron nuevos pictogramas");
+            Log.d("agregaron", "Se  agregaron nuevos pictogramas");
+        }
+
+
         // Reading all contacts
     }
     private void setupRecyclerView(@NonNull RecyclerView recyclerView,DiferenteAdapter adapter,int tipo) {
@@ -127,7 +189,7 @@ public class PictogramaGridActivity extends AppCompatActivity implements TextToS
         if (tipo==0){
             recyclerView.setLayoutManager(new GridLayoutManager(this,5));
         }else{
-            recyclerView.setLayoutManager(new GridLayoutManager(this,9));
+            recyclerView.setLayoutManager(new GridLayoutManager(this,8));
         }
 
         //recyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
@@ -308,7 +370,7 @@ public class PictogramaGridActivity extends AppCompatActivity implements TextToS
             }
         }
 ////////////////////////////////////////////////////////////////////////////
-public class FraseViewHolder extends RecyclerView.ViewHolder{
+public class FraseViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
     public final View mView;
 
     public  final ImageView mImageViewFrase;
@@ -316,13 +378,35 @@ public class FraseViewHolder extends RecyclerView.ViewHolder{
     public  Pictograma mItem;
 
 
-    public FraseViewHolder (View view) {
+    public FraseViewHolder(View view) {
         super(view);
         mView = view;
         mImageViewFrase=(ImageView) view.findViewById(R.id.iv_PicElemento_frase_comunicador);
         mNombreViewFrase=(TextView) view.findViewById(R.id.tv_PicElemento_frase_comunicador);
+
+        view.setOnClickListener(this);
+
+    }
+
+    @Override
+    public void onClick(View v) {
+        int position = getAdapterPosition();
+
+
+
+        Delete(position);
+
+        //Pictograma pictograma_frase = mValues.get(position);
+        //String x= position + " - " + pictograma_frase.getNombre();
+        //Toast.makeText(getApplicationContext(), x , Toast.LENGTH_LONG).show();
+
     }
 }
+
+
+
+
+
 
         ////////////////////////////////////////////////////////////////////
         @Override

@@ -109,6 +109,23 @@ public class DBHelper  extends SQLiteOpenHelper{
         }
         return usersList;
     }
+
+
+
+    public int count(){
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor mCount= db.rawQuery("select count(*) from "+ TABLE_PICTOGRAMA , null);
+        mCount.moveToFirst();
+        int count= mCount.getInt(0);
+        mCount.close();
+
+        return count;
+    }
+
+
+
+
+
     /*getUsersCount() will give the total number of records in the table*/
     public int getUsersCount() {
         String countQuery = "SELECT  * FROM " + TABLE_PICTOGRAMA;
@@ -116,7 +133,10 @@ public class DBHelper  extends SQLiteOpenHelper{
         Cursor cursor = db.rawQuery(countQuery, null);
         cursor.close();
         return cursor.getCount();
+
+
     }
+
     /*updateUser() will be used to update the existing user record*/
     public int updateUser(Pictograma picto) {
         SQLiteDatabase db = this.getReadableDatabase();

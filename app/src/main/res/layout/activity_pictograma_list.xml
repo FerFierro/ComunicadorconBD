@@ -13,14 +13,20 @@
         xmlns:tools="http://schemas.android.com/tools"
         android:id="@+id/activity_main"
         style="@style/EstiloGeneralComunicadorAmaac"
-        tools:context="com.escom.tt2016.comunicador.MainActivity">
+        tools:context="com.escom.tt2016.comunicador.MainActivity"
+        android:weightSum="1"
+        >
+
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:weightSum="1"
             android:orientation="horizontal"
-            tools:ignore="DisableBaselineAlignment">
+            tools:ignore="DisableBaselineAlignment"
+            android:layout_weight=".7"
+            android:minHeight="160dp"
+            >
 
             <FrameLayout
                 android:id="@+id/gv_contenedorFrase"
@@ -30,7 +36,7 @@
                 android:background="@color/colorPrimary_light"
                 tools:ignore="RtlHardcoded" >
                 <include layout="@layout/pictograma_list_frase" />
-                </FrameLayout>
+            </FrameLayout>
 
 
             <!--  android:numColumns="auto_fit" para indicarle al framework que infle la cantidad necesaria de columnas según el atributo columnWidth.
@@ -47,7 +53,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight=".9"
-                android:weightSum="1">
+                android:weightSum="1"
+                android:background="@color/colorPrimary_light"
+                >
 
                 <ImageView
                     android:id="@+id/iv_play_frase"
@@ -57,7 +65,9 @@
                     android:layout_weight=".5"
                     android:adjustViewBounds="false"
                     android:layout_gravity="center_vertical|center_horizontal"
-                    tools:ignore="ContentDescription,NestedWeights" />
+                    tools:ignore="ContentDescription,NestedWeights"
+                    android:onClick="playFrase"
+                    />
 
                 <ImageView
                     android:id="@+id/iv_delete_frase"
@@ -66,7 +76,9 @@
                     app:srcCompat="@drawable/ic_delete_black_24dp"
                     android:layout_weight=".5"
                     android:layout_gravity="center_vertical|center_horizontal"
-                    tools:ignore="ContentDescription" />
+                    tools:ignore="ContentDescription"
+                    android:onClick="deleteFrase"
+                    />
             </LinearLayout>
 
 
@@ -77,13 +89,17 @@
             android:layout_height="match_parent"
             android:orientation="horizontal"
             android:weightSum="1"
-            tools:ignore="DisableBaselineAlignment">
+            tools:ignore="DisableBaselineAlignment"
+            android:layout_weight=".3"
+            >
 
             <FrameLayout
                 android:id="@+id/frameLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight=".1"
+                android:layout_marginTop="5dp"
+                android:layout_marginLeft="25dp"
                 app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
                 <!--   El Frahment interfaz de usuario se utiliza para rellenar la interfaz de usuario principal del archivo
@@ -103,6 +119,7 @@
                     android:id="@+id/iv_regresar_categoria"
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
+                    android:layout_gravity="bottom"
                     app:srcCompat="@drawable/ic_regresar_back_black_24dp"
                     tools:ignore="ContentDescription" />
 
@@ -110,6 +127,15 @@
 
 
         </LinearLayout>
+
+
+
+
+
+
+
+
+
 
     </LinearLayout>
 
